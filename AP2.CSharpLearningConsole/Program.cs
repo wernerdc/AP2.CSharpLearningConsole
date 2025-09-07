@@ -5,7 +5,7 @@
         static void Main()
         {
             Console.BackgroundColor = ConsoleColor.Blue;
-            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
 
             Console.WriteLine("CSharpLearning");
@@ -31,8 +31,9 @@
 
             Tests tests = new Tests();
 
-            Console.WriteLine("ArrayAnzeigen:");
+            Console.WriteLine("ArrayAnzeigen: (werte)");
             tests.ArrayAnzeigen(werte);
+            Console.ForegroundColor = ConsoleColor.Gray;
 
             int anzahl = tests.BestimmeAnzahlUnter0(werte);
             Console.WriteLine("\nBestimmeAnzahlUnter0: " + anzahl);
@@ -56,9 +57,9 @@
             Console.WriteLine($"BestimmeAnzahlLinq(3): {tests.BestimmeAnzahlLinq(werte, 3)}");
 
             int[] negatives = tests.FindNegatives(werte);
-            Console.WriteLine("\nFindNegatives:");
+            Console.Write($"\nFindNegatives:     ");
             tests.ArrayAnzeigen(negatives);
-            Console.WriteLine($"FindNegativesLinq:");
+            Console.Write($"FindNegativesLinq: ");
             tests.ArrayAnzeigen(tests.FindNegativesLinq(werte));
 
             string negativesStr = tests.FindNegativesAsString(werte);
@@ -67,26 +68,97 @@
             Console.WriteLine($"FindNegativesAsStingLinq: {tests.FindNegativesAsStringLinq(werte)}");
 
             int[] evens = tests.FindEven(werte);
-            Console.WriteLine($"\nFindEven:");
+            Console.Write($"\nFindEven:     ");
             tests.ArrayAnzeigen(evens);
-            Console.WriteLine($"FindEvenLinq:");
+            Console.Write($"FindEvenLinq: ");
             tests.ArrayAnzeigen(tests.FindEvenLinq(werte));
 
             double[] medians = tests.BerechneMittelUeber2(werte);
-            Console.WriteLine("\nBerechneMittelÜber2: ");
+            Console.Write("\nBerechneMittelÜber2:     ");
             tests.ArrayAnzeigen(medians);
+            Console.Write("BerechneMittelÜber2List: ");
+            tests.ArrayAnzeigen(tests.BerechneMittelUeber2List(werte));
 
             List<int> foundMinMax = tests.Find(werte, 0, 25);
-            Console.WriteLine("\nFind: ");
+            Console.Write("\nFind:     ");
             tests.ArrayAnzeigen(foundMinMax.ToArray());
-            Console.WriteLine("FindLinq: ");
+            Console.Write("FindLinq: ");
             tests.ArrayAnzeigen(tests.FindLinq(werte, 0, 25).ToArray());
 
             List<int> foundNegatives = tests.FindNegativesAsList(werte);
-            Console.WriteLine($"\nFindNegativesAsList: ");
+            Console.Write($"\nFindNegativesAsList:     ");
             tests.ArrayAnzeigen(foundNegatives.ToArray());
-            Console.WriteLine($"FindNegativesAsListLinq: ");
+            Console.Write($"FindNegativesAsListLinq: ");
             tests.ArrayAnzeigen(tests.FindNegativesAsListLinq(werte).ToArray());
+
+            Console.Write($"\nListeAnzeigen:        ");
+            tests.ListeAnzeigen(foundNegatives);
+            Console.Write($"ListeAnzeigenForeach: ");
+            tests.ListeAnzeigenForeach(foundNegatives);
+
+            Console.Write($"\nListeAnzeigenGeneric<>: ");
+            tests.ListeAnzeigen<double>(tests.BerechneMittelUeber2List(werte).ToList());
+
+            // -------------------------------------------------------------------------
+            // SensorData
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("\n\n[SensorData]\n-----------------------------------------------------------------------\n");
+
+            Console.WriteLine("SensorArrayAnzeigen: ");
+            tests.SensorArryAnzeigen(sensorData);
+            Console.ForegroundColor = ConsoleColor.Gray;
+
+            int sensorU0 = tests.BestimmeAnzahlSensoDataUnter0(sensorData);
+            Console.WriteLine($"\nBestimmeAnzahlSensorDataUnter0:     {sensorU0}");
+            Console.WriteLine($"BestimmeAnzahlSensorDataUnter0Linq: {tests.BestimmeAnzahlSensoDataUnter0Linq(sensorData)}");
+
+            double anteilU0 = tests.BestimmeAnteilSensorDataUnter0(sensorData);
+            Console.WriteLine($"\nBestimmeAnteilSensorDataUnter0:     {anteilU0:N1} %");
+            Console.WriteLine($"BestimmeAnteilSensorDataUnter0Linq: {tests.BestimmeAnteilSensorDataUnter0Linq(sensorData):N1} %");
+
+            double sensorMin = tests.BestimmeSensorDataMinimum(sensorData);
+            Console.WriteLine($"\nBestimmeSensorDataMinimum:     {sensorMin}");
+            Console.WriteLine($"BestimmeSensorDataMinimumLinq: {tests.BestimmeSensorDataMinimumLinq(sensorData)}");
+            
+            double sensorMax = tests.BestimmeSensorDataMaximum(sensorData);
+            Console.WriteLine($"\nBestimmeSensorDataMaximum:     {sensorMax}");
+            Console.WriteLine($"BestimmeSensorDataMaximumLinq: {tests.BestimmeSensorDataMaximumLinq(sensorData)}");
+            
+            double sensorMedian = tests.BestimmeSensorDataMittelwert(sensorData);
+            Console.WriteLine($"\nBestimmeSensorDataMittelwert:     {sensorMedian}");
+            Console.WriteLine($"BestimmeSensorDataMittelwertLinq: {tests.BestimmeSensorDataMittelwertLinq(sensorData)}");
+
+            double sensorMedianDate = tests.BestimmeSensorDataMittelwert(sensorData, new DateTime(2025, 4, 8));
+            Console.WriteLine($"\nBestimmeSensorDataMittelwert(datum):     {sensorMedianDate}");
+            sensorMedianDate = tests.BestimmeSensorDataMittelwertLinq(sensorData, new DateTime(2025, 4, 8));
+            Console.WriteLine($"BestimmeSensorDataMittelwertLinq(datum): {sensorMedianDate}");
+
+            double sensorCountTimespan = tests.BestimmeAnzahlSensorData(
+                sensorData, new DateTime(2025, 4, 8), new DateTime(2025, 4, 9));
+            Console.WriteLine($"\nBestimmeAnzahlSensorData(timespan):     {sensorCountTimespan}");
+            sensorCountTimespan = tests.BestimmeAnzahlSensorDataLinq(
+                sensorData, new DateTime(2025, 4, 8), new DateTime(2025, 4, 9));
+            Console.WriteLine($"BestimmeAnzahlSensorDataLinq(timespan): {sensorCountTimespan}");
+
+            SensorData sdMax = tests.FindSensorDataMaximum(sensorData);
+            Console.WriteLine($"\nFindSensorDataMaximum:        {sdMax}");
+            Console.WriteLine($"FindSensorDataMaximumLinq:    {tests.FindSensorDataMaximumLinq(sensorData)}");
+            Console.WriteLine($"FindSensorDataMaximumForeach: {tests.FindSensorDataMaximumForeach(sensorData)}");
+
+            List<SensorData> sdTimespan = tests.FindSensorData(
+                sensorData, new DateTime(2025, 4, 8), new DateTime(2025, 4, 9));
+            Console.WriteLine($"\nFindSensorData(timespan):");
+            tests.SensorArryAnzeigen(sdTimespan.ToArray());
+            sdTimespan = tests.FindSensorDataLinq(
+                sensorData, new DateTime(2025, 4, 8), new DateTime(2025, 4, 9));
+            Console.WriteLine($"FindSensorDataLinq(timespan):");
+            tests.SensorArryAnzeigen(sdTimespan.ToArray());
+
+            List<SensorData> sdId = tests.FindSensorData(sensorData, 1);
+            Console.WriteLine($"\nFindSensorData(id):");
+            tests.SensorArryAnzeigen(sdId.ToArray());
+            Console.WriteLine($"FindSensorDataLinq(id):");
+            tests.SensorArryAnzeigen(tests.FindSensorDataLinq(sensorData, 1).ToArray());
 
             Console.ReadLine();
         }

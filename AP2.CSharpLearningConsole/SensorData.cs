@@ -1,6 +1,6 @@
 ﻿namespace AP2.CSharpLearningConsole;
 
-class SensorData
+public class SensorData
 {
     public int Id;
     public double Value;
@@ -17,7 +17,7 @@ class SensorData
     // Implementiere ToString()-Methode
     public override string ToString()
     {
-        return $"(Id: {Id} Value: {Value} Timestamp: {Timestamp.ToShortDateString()}) ";
+        return $"(Id: {Id,2}  Value: {Value,6}  Timestamp: {Timestamp.ToShortDateString()}) ";
     }
 
 }
