@@ -577,15 +577,42 @@ namespace AP2.CSharpLearningConsole
         // Implementiere die Methode BestimmeAnzahlSensoren, die ein SensorData Array sd
         // übernimmt und die Anzahl unterschiedlicher Sensor-Ids zurückgibt.
         // Hinweis: Verwende eine HashSet<int> um die Anzahl der Sensoren zu bestimmen
-
+        public int BestimmeAnzahlSensoren(SensorData[] sd)
+        {
+            HashSet<int> results = new();
+            foreach (SensorData sensor in sd)
+            {
+                results.Add(sensor.Id);
+            }
+            return results.Count;
+        }
 
         // Implementiere die Methode BestimmeAnzahlSensorenProTag, die ein SensorData Array sd
         // übernimmt und für jeden vorhandenen Tag die Anzahl existierender SensorData Objekte zurückgibt.
         // Hinweis: Verwende ein Dictionary<DateTime, int> um die Anzahl der Sensoren pro Tag zu bestimmen
+        public Dictionary<DateTime, int> BestimmeAnzalSensorenProTag(SensorData[] sd)
+        {
+            Dictionary<DateTime, int> results = new();
+            foreach (SensorData sensor in sd)
+            {
+                if (!results.ContainsKey(sensor.Timestamp))
+                    results[sensor.Timestamp] = 1;
+                else
+                    results[sensor.Timestamp]++;
+            }
 
+            return results;
+        }
 
         // Implementiere die Methode DictionaryAnzeigen, die ein Dictionary<DateTime, int> dict übernimmt 
         // und auf die Konsole ausgibt.
+        public void DictionaryAnzeigen(Dictionary<DateTime, int> dict)
+        {
+            foreach (var item in dict)
+            {
+                Console.WriteLine($"{item.Key:d} -> {item.Value} Sensor(en)");
+            }
+        }
 
     }
 }

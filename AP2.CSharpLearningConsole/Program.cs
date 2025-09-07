@@ -160,6 +160,14 @@
             Console.WriteLine($"FindSensorDataLinq(id):");
             tests.SensorArryAnzeigen(tests.FindSensorDataLinq(sensorData, 1).ToArray());
 
+            int countId = tests.BestimmeAnzahlSensoren(sensorData);
+            Console.WriteLine($"\nBestimmeAnzahlSensoren: {countId}");
+
+            Dictionary<DateTime, int> sensorCountByDate = tests.BestimmeAnzalSensorenProTag(sensorData);
+            Console.WriteLine("\nBestimmeAnzahlSensorenProTag:");
+            Console.WriteLine("+ DictionaryAnzeigen:");
+            tests.DictionaryAnzeigen(sensorCountByDate);
+
             Console.ReadLine();
         }
     }
